@@ -14,6 +14,7 @@ class Exp(MyExp):
         self.num_classes = 20
         self.depth = 0.33
         self.width = 0.50
+        self.warmup_epochs = 1
         self.exp_name = os.path.split(os.path.realpath(__file__))[1].split(".")[0]
 
     def get_data_loader(self, batch_size, is_distributed, no_aug=False, cache_img=False):
@@ -48,7 +49,8 @@ class Exp(MyExp):
             preproc=TrainTransform(max_labels=120),
             degrees=self.degrees,
             translate=self.translate,
-            scale=self.scale,
+            mosaic_scale=self.mosaic_scale,
+            mixup_scale=self.mixup_scale,
             shear=self.shear,
             perspective=self.perspective,
             enable_mixup=self.enable_mixup,
